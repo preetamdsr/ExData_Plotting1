@@ -1,0 +1,8 @@
+hpc<-read.table("household_power_consumption.txt",sep=";",header=T,na.string="?",stringsAsFactors=F)
+hpc$Time<-paste(hpc$Date, hpc$Time)
+hpc$Date<-as.Date(hpc$Date,"%d/%m/%Y")
+hpc$Time<-strptime(hpc$Time,"%d/%m/%Y %H:%M:%S")
+hpc_sub<-subset(hpc,hpc$Date=="2007-02-01" | hpc$Date=="2007-02-02")
+png("plot2.png",width=480,height=480,units="px")
+plot(hpc_sub$Time,hpc_sub$Global_active_power,type="l",ylab="Global Active Power (kilowatts)",xlab="")
+dev.off()
